@@ -9,10 +9,10 @@ class TestOrders:
 
     @allure.title("Создание заказа с разными цветами")
     @allure.description("Можно указать один из цветов — BLACK или GREY;"
-                        "можно указать оба цвета;"
-                        "можно совсем не указывать цвет;"
-                        "тело ответа содержит track.")
-    @pytest.mark.parametrize('color', ['BLACK', 'GREY', 'BLACK, GREY', ''])
+                        " можно указать оба цвета;"
+                        " можно совсем не указывать цвет;"
+                        " тело ответа содержит track.")
+    @pytest.mark.parametrize('color', ['BLACK', 'GREY', 'BLACK", "GREY', ''])
     def test_create_order_with_different_colors(self, color):
         # собираем тело запроса
         payload = {

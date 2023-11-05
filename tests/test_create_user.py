@@ -16,9 +16,10 @@ class TestCreateUser:
     # успешный запрос возвращает {"ok":true}
     @allure.title("Корректное создание нового пользователя")
     @allure.description("Проверка того, что курьера можно создать;"
-                        "запрос возвращает правильный код ответа;"
-                        "успешный запрос возвращает {\"ok\":true}")
+                        " запрос возвращает правильный код ответа;"
+                        " успешный запрос возвращает {\"ok\":true}")
     def test_create_new_user_correct_status_and_answer(self):
+        @allure.step("Генерирование рандомной строки в нижнем регистре.")
         def generate_random_string(length):
             letters = string.ascii_lowercase
             random_string = ''.join(random.choice(letters) for i in range(length))
@@ -38,14 +39,16 @@ class TestCreateUser:
 
         # отправляем запрос на регистрацию курьера и сохраняем ответ в переменную response
         response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
+
         assert response.status_code == 201 and response.text == '{"ok":true}'
 
     # Проверка того, что нельзя создать двух одинаковых курьеров;
     # если создать пользователя с логином, который уже есть, возвращается ошибка
     @allure.title("Создание второго одинакового пользователя")
     @allure.description("Проверка того, что нельзя создать двух одинаковых курьеров;"
-                        "если создать пользователя с логином, который уже есть, возвращается ошибка")
+                        " если создать пользователя с логином, который уже есть, возвращается ошибка")
     def test_create_new_user_twice(self):
+        @allure.step("Генерирование рандомной строки в нижнем регистре.")
         def generate_random_string(length):
             letters = string.ascii_lowercase
             random_string = ''.join(random.choice(letters) for i in range(length))
@@ -72,7 +75,7 @@ class TestCreateUser:
     # если одного из полей нет, запрос возвращает ошибку
     @allure.title("Создание пользователя без одного из обязательных полей")
     @allure.description("Проверка того, что нельзя создать нового курьера без обязательных полей;"
-                        "если одного из полей нет, запрос возвращает ошибку")
+                        " если одного из полей нет, запрос возвращает ошибку")
     @pytest.mark.parametrize('login, password', [[random_login(), ''], ['', 'password12345']])
     def test_create_new_user_without_obligatory_fields(self, login, password):
         # собираем тело запроса
