@@ -1,0 +1,8 @@
+**/__pycache__/
+.idea/
+venv/
+logs/
+/Pipfile
+/Pipfile.lock
+allure-results/
+target
